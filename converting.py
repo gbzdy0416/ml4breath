@@ -24,7 +24,7 @@ def convert_model(input_path='BreathingModel.h5', output_path='BreathingModel.ml
         mlmodel = ct.convert(
                   model,
                   source="tensorflow",
-                  inputs=[ct.TensorType(input_shape)],
+                  inputs=[ct.TensorType(shape=input_shape)],
                   minimum_deployment_target=ct.target.iOS14
         )
 
