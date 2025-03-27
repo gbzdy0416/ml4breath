@@ -6,15 +6,12 @@ from sklearn.preprocessing import MinMaxScaler
 model = tf.keras.models.load_model('breath.h5')
 
 # Additional test, in case invalid value exists
-for i in range(0,100):
-    for j in range(0,100):
-        input_data = np.array([[0, 0.01*i, 0.01*j]])
-        prediction = model.predict(input_data)
-        tick_length, inhale, exhale, repetition = prediction[0]
-        if tick_length <= 0 or inhale <= 0 or exhale <= 0 or repetition <= 0:
-            print("failure!")
-            exit()
-input_data = np.array([[0, 1, 0.2]])
+test_inputs = np.array([[0, 0.01*i, 0.01*j] for i in range(100) for j in range(100)])
+predictions = model.predict(test_inputs)
+if np.any(predictions <= 0):
+    problematic_indices = np.where(predictions <= 0)
+    print("An invalid value is given in the index " + problematic_indices + "!")
+    sys.exit(1)
 
 # Prediction
 prediction = model.predict(input_data)
