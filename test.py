@@ -28,13 +28,13 @@ def start_test(input_path='BreathingModel.h5'):
             sys.exit(1)
 
     print("No invalid values are given. Regular test starting...")
-    input_data = np.array([[0,1.2,0]])
+    input_data = np.array([[0,0.5,0.5]])
     # Prediction
     prediction = model.predict(input_data)
 
     # Result
     tick_length, inhale,  exhale, repetition = prediction[0] * (output_max - output_min) + output_min
-    print(f"Tick length: {tick_length:.2f}")
+    print(f"Tick length: {tick_length:.2f} ms")
     print(f"Inhale: {inhale:.2f} ticks")
     print(f"Exhale: {exhale:.2f} ticks")
     print(f"Repetition: {repetition:.0f} times")

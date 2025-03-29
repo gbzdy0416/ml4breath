@@ -15,7 +15,7 @@ def load_and_prepare_data(csv_path='data.csv'):
 
     #Splitting data into input and output attributes
     df = pd.read_csv(csv_path, names=["function", "intensity_function", "intensity_time",
-                               "tick_length", "inhale", "hold", "exhale", "repetition"])
+                               "tick_length", "inhale", "exhale", "repetition"])
     features = df[['function', 'intensity_function', 'intensity_time']]
     labels = df[['tick_length', 'inhale', 'exhale', 'repetition']]
 
