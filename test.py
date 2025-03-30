@@ -17,7 +17,7 @@ def start_test(input_path='BreathingModel.h5'):
 
     print("Test of correctness of the model...")
     # Pre-defined denormalizer
-    output_min = np.array([746, 3, 5, 4])  # tick_length, inhale, exhale, repetition
+    output_min = np.array([746, 2, 4, 5])  # tick_length, inhale, exhale, repetition
     output_max = np.array([1250, 9, 10, 9])
     # Additional test, in case invalid value exists
     test_inputs = np.array([[0, 0.01*i, 0.01*j] for i in range(100) for j in range(100)])
