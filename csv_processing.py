@@ -16,9 +16,9 @@ def process_csv(input_file, output_file):
     df = pd.read_csv(input_file, header=0, skiprows=1)
     df_subset = df.iloc[:, 12:22].copy()
     df_subset.iloc[:, 7] = df.iloc[:, 19].apply(parse_and_average)
-    df_subset = df_subset[df_subset.iloc[:, 7] >= 2.5]
+    df_subset = df_subset[df_subset.iloc[:, 7] >= 3]
     df_subset = df_subset[df_subset.iloc[:, 5] < df_subset.iloc[:, 0]]
-    df_subset.iloc[:, 5] = -1 * (df_subset.iloc[:, 5] - df_subset.iloc[:, 0])
+    df_subset.iloc[:, 5] = (-1 * (df_subset.iloc[:, 5] - df_subset.iloc[:, 0]) / df_subset.iloc[:, 0] * 100).round(2)
     sin_factor = np.sin(df_subset.iloc[:, 6] / 100)
     multiplier = 1 + sin_factor
 

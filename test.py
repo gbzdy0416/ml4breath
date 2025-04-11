@@ -22,7 +22,7 @@ def start_test(input_path='BreathingModel_2.h5'):
     print("Test of correctness of the model...")
     # Pre-defined denormalizer
     # Additional test, in case invalid value exists
-    test_inputs = scaler.transform(np.array([[k, i, j, l] for i in range(101) for j in range(101) for k in [1, 7] for l in [1,5]]))
+    test_inputs = scaler.transform(np.array([[k, i, j, l] for i in range(101) for j in [1,5] for k in [1, 7] for l in [1,5]]))
     predictions = model.predict(test_inputs)
     min = 10000000000000
     max = 0
@@ -37,13 +37,13 @@ def start_test(input_path='BreathingModel_2.h5'):
     print(f"min time: {min:.3f} s")
     print(f"max time: {max:.3f} s")
     print("No invalid values are given. Regular test starting...")
-    input_data = scaler.transform(np.array([[80,1,2,1]]))
+    input_data = scaler.transform(np.array([[50,5,2,1]]))
     # Prediction
     prediction = model.predict(input_data)
     # Result
     inhale, exhale, repetition, reduction, satisfaction = output_scaler.inverse_transform(prediction.reshape(1, -1))[0]
-    print(f"Inhale: {inhale:.3f} ms")
-    print(f"Exhale: {exhale:.3f} ms")
+    print(f"Inhale: {inhale:.3f} s")
+    print(f"Exhale: {exhale:.3f} s")
     print(f"Repetition: {repetition:.0f} times")
     print(f"Reduction: {reduction:.0f}")
     print(f"Satisfaction: {satisfaction:.0f}")

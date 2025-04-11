@@ -15,9 +15,9 @@ def custom_loss(y_true, y_pred):
     pred_reduction = y_pred[:, 3]
     pred_satisfaction = y_pred[:, 4]
 
-    penalty_satisfaction = tf.cast(pred_satisfaction < 2.75, tf.float32)
+    penalty_satisfaction = tf.cast(pred_satisfaction < 3, tf.float32)
     penalty_reduction = tf.cast(pred_reduction >= 0.0, tf.float32)
-
-    penalty = 0.1 * penalty_satisfaction + 0.2 * penalty_reduction + 0.05 * (pred_inhale - pred_exhale)
+    penalty_length = tf.cast((pred_inhale + pred_exhale - 10.0) >= 0.0, tf.float32)
+    penalty = 0.1 * penalty_satisfaction + 0.2 * penalty_reduction + 0.2 * (pred_inhale - pred_exhale) + 0.2 * penalty_length
 
     return mse + penalty
