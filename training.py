@@ -28,6 +28,8 @@ def load_and_prepare_data(csv_path='data.csv'):
     output_scaled = output_scaler.fit_transform(labels)
     joblib.dump(scaler, 'scaler.save')
     joblib.dump(output_scaler, 'y_scaler.save')
+    print(output_scaler.center_)
+    print(output_scaler.scale_)
     print("Scalers are saved")
     return train_test_split(input_set, output_scaled, test_size=0.2, random_state=42)
 
@@ -37,8 +39,6 @@ def build_model(input_train):
         tf.keras.layers.InputLayer(input_shape=(input_train.shape[1],)),
         tf.keras.layers.Dense(128, activation='tanh'),
         tf.keras.layers.Dense(64, activation='tanh'),
-        tf.keras.layers.Dense(64, activation='tanh'),
-        tf.keras.layers.Dense(32, activation='tanh'),
         tf.keras.layers.Dense(5, activation='tanh')
     ])
     model.compile(
@@ -56,9 +56,9 @@ def train_model():
     #Building and training the model
     print("Data prepared. Start training model...")
     model = build_model(input_train)
-    model.fit(input_train, output_train, batch_size=16, epochs=400)
-    model.save('BreathingModel_2.h5')
-    print("Model trained and saved as BreathingModel_2.h5, scalers are also saved")
+    model.fit(input_train, output_train, batch_size=128, epochs=800)
+    model.save('BreathingModel_9.keras')
+    print("Model trained and saved as BreathingModel_2.keras, scalers are also saved")
 
 if __name__ == '__main__':
     train_model()
